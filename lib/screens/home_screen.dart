@@ -1,9 +1,11 @@
+import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:scheduled/services/notifications.services.dart';
 import 'package:scheduled/services/theme_services.dart';
 import 'package:scheduled/ui/theme.dart';
+import 'package:scheduled/ui/widgets/add_task_bar.dart';
 import 'package:scheduled/ui/widgets/button.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<HomeScreen> {
+  DateTime _selectedDate = DateTime.now();
   var notifyHelper;
   @override
   void initState() {
@@ -28,8 +31,43 @@ class _MainScreenState extends State<HomeScreen> {
     return Scaffold(
         appBar: _appBar(),
         body: Column(
-          children: [_addTaskBar()],
+          children: [
+            _addTaskBar(),
+            _addDateBar(),
+          ],
         ));
+  }
+
+  _addDateBar() {
+    return Container(
+      margin: const EdgeInsets.only(top: 20, left: 20),
+      child: DatePicker(
+        DateTime.now(),
+        height: 100,
+        width: 80,
+        initialSelectedDate: DateTime.now(),
+        selectionColor: primaryClr,
+        selectedTextColor: Colors.white,
+        dateTextStyle: const TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: Colors.grey,
+        ),
+        dayTextStyle: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          color: Colors.grey,
+        ),
+        monthTextStyle: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+          color: Colors.grey,
+        ),
+        onDateChange: (date) {
+          _selectedDate = date;
+        },
+      ),
+    );
   }
 
   _addTaskBar() {
@@ -38,22 +76,21 @@ class _MainScreenState extends State<HomeScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  DateFormat.yMMMMd().format(DateTime.now()),
-                  style: subHeadingStyle,
-                ),
-                Text(
-                  'Today',
-                  style: headingStyle,
-                )
-              ],
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                DateFormat.yMMMMd().format(DateTime.now()),
+                style: subHeadingStyle,
+              ),
+              Text(
+                'Today',
+                style: headingStyle,
+              )
+            ],
           ),
-          MyButton(label: '+ Add Task', onTap: () => null)
+          MyButton(
+              label: '+ Add Task', onTap: () => Get.to(const AddTaskPage()))
         ],
       ),
     );
