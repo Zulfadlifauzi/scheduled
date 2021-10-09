@@ -28,8 +28,8 @@ class _MainScreenState extends State<HomeScreen> {
           size: 20,
         ),
       ),
-      actions: [
-        const Icon(
+      actions: const [
+        Icon(
           Icons.person,
           size: 20,
         ),

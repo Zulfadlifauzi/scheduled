@@ -10,11 +10,11 @@ Color darkHeaderClr = Color(0xFF424242);
 
 class Themes {
   static final light = ThemeData(
-    primarySwatch: Colors.amber,
+    primarySwatch: Colors.blue,
     brightness: Brightness.light,
   );
   static final dark = ThemeData(
-    primarySwatch: Colors.cyan,
+    primarySwatch: Colors.blue,
     brightness: Brightness.dark,
   );
 }
