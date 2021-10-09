@@ -11,8 +11,20 @@ class _MainScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: _appBar(),
       body: const Text('Hello'),
+    );
+  }
+
+  _appBar() {
+    return AppBar(
+      leading: GestureDetector(
+        onTap: () {},
+        child: const Icon(
+          Icons.nightlight_round_outlined,
+          size: 20,
+        ),
+      ),
     );
   }
 }
