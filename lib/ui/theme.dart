@@ -31,6 +31,22 @@ TextStyle get subHeadingStyle {
           fontWeight: FontWeight.bold)));
 }
 
+TextStyle get titleStyle {
+  return GoogleFonts.lato(
+      textStyle: (TextStyle(
+          fontSize: 16,
+          color: Get.isDarkMode ? Colors.white : Colors.black,
+          fontWeight: FontWeight.w400)));
+}
+
+TextStyle get subTitleStyle {
+  return GoogleFonts.lato(
+      textStyle: (TextStyle(
+          fontSize: 14,
+          color: Get.isDarkMode ? Colors.grey[100] : Colors.grey[600],
+          fontWeight: FontWeight.w400)));
+}
+
 TextStyle get headingStyle {
   return GoogleFonts.lato(
       textStyle: (const TextStyle(fontSize: 30, fontWeight: FontWeight.bold)));
