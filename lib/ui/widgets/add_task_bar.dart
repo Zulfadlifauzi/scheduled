@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:scheduled/controllers/task_controller.dart';
+import 'package:scheduled/models/task.dart';
 import 'package:scheduled/ui/theme.dart';
 import 'package:scheduled/ui/widgets/button.dart';
 import 'package:scheduled/ui/widgets/input_field.dart';
@@ -13,6 +15,7 @@ class AddTaskPage extends StatefulWidget {
 }
 
 class _AddTaskPageState extends State<AddTaskPage> {
+  final TaskController _taskController = Get.put(TaskController());
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
 
@@ -181,6 +184,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
 
   _validateDate() {
     if (_titleController.text.isNotEmpty && _noteController.text.isNotEmpty) {
+      _addTaskToDb();
       Get.back();
     } else if (_titleController.text.isEmpty || _noteController.text.isEmpty) {
       Get.snackbar('Required', 'All Fields are required !',
@@ -190,6 +194,21 @@ class _AddTaskPageState extends State<AddTaskPage> {
           colorText: pinkClr,
           icon: Icon(Icons.warning_amber_rounded, color: Colors.red));
     }
+  }
+
+  _addTaskToDb() {
+    _taskController.addTask(
+        task: Task(
+      note: _noteController.text,
+      title: _titleController.text,
+      date: DateFormat.yMd().format(_selectedDate),
+      startTime: _startTime,
+      endTime: _endTime,
+      remind: _selectedRemind,
+      repeat: _selectedRepeat,
+      color: _selectedColor,
+      isCompleted: 0,
+    ));
   }
 
   _colorPallete() {
